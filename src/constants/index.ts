@@ -44,7 +44,12 @@ export const navLinks: Array<INavLink> = [
   },
 ]
 
-const services = [
+export interface IService {
+  title: string
+  icon: string
+}
+
+const services: Array<IService> = [
   {
     title: 'Web Developer',
     icon: web,

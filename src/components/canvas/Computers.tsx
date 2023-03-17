@@ -4,13 +4,13 @@ import { OrbitControls, Preload, useGLTF } from '@react-three/drei'
 
 import CanvasLoader from '../Loader'
 
-const Computers: React.FC = () => {
+const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
   const computer = useGLTF('./desktop_pc/scene.gltf')
 
   return (
     <mesh>
       <hemisphereLight intensity={0.15} groundColor="black" />
-      <pointLight intensity={1} position={[-0.5, -0.75, 1]} /> {/* Change position */}
+      <pointLight intensity={1} position={[-0.5, 0, 1]} />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
@@ -21,8 +21,8 @@ const Computers: React.FC = () => {
       />
       <primitive
         object={computer.scene}
-        scale={0.75}
-        position={[0, -4, -1.5]} /* first Y value -3.25*/
+        scale={isMobile ? 0.65 : 0.7}
+        position={isMobile ? [0, -3, -2.2] : [0, -3, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -30,6 +30,31 @@ const Computers: React.FC = () => {
 }
 
 const ComputerCanvas: React.FC = () => {
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  useEffect(() => {
+    // Add a listener for changes to the screen size
+    const mediaQuey = window.matchMedia('(max-width: 640px)')
+
+    // Set the initial value of the `isMobile` state variable
+    setIsMobile(mediaQuey.matches)
+
+    // Define a callback function to handle changes to the media query
+    const handleMediaQueryChange = (event: {
+      matches: boolean | ((prevState: boolean) => boolean)
+    }) => {
+      setIsMobile(event.matches)
+    }
+
+    // Add the callback function as a listener for changes to the media query
+    mediaQuey.addEventListener('change', handleMediaQueryChange)
+
+    // Remove the listener when the component is unmounted
+    return () => {
+      mediaQuey.removeEventListener('change', handleMediaQueryChange)
+    }
+  }, [])
+
   return (
     <Canvas
       frameloop="demand"
@@ -39,7 +64,7 @@ const ComputerCanvas: React.FC = () => {
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} />
-        <Computers />
+        <Computers isMobile={isMobile} />
       </Suspense>
 
       <Preload all />

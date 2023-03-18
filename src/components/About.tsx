@@ -54,7 +54,7 @@ const About: React.FC = () => {
         user-friendly solutions that solve real-world problems.
       </motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-10">
+      <div className="mt-20 flex flex-wrap gap-10 justify-center">
         {services.map((service: IService, index: number) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}

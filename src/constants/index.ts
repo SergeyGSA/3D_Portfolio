@@ -68,7 +68,12 @@ const services: Array<IService> = [
   },
 ]
 
-const technologies = [
+export interface ITechnologiesItem {
+  name: string
+  icon: string
+}
+
+const technologies: Array<ITechnologiesItem> = [
   {
     name: 'HTML 5',
     icon: html,

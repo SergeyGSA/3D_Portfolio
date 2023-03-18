@@ -219,7 +219,19 @@ const testimonials = [
   },
 ]
 
-const projects = [
+export interface ITag {
+  name: string
+  color: string
+}
+export interface IProject {
+  name: string
+  description: string
+  tags: Array<ITag>
+  image: string
+  source_code_link: string
+}
+
+const projects: Array<IProject> = [
   {
     name: 'Car Rent',
     description:

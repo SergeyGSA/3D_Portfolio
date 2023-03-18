@@ -192,7 +192,15 @@ const experiences: Array<IExperienceItem> = [
   },
 ]
 
-const testimonials = [
+export interface ITestimonial {
+  testimonial: string
+  name: string
+  designation: string
+  company: string
+  image: string
+}
+
+const testimonials: Array<ITestimonial> = [
   {
     testimonial:
       'I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.',

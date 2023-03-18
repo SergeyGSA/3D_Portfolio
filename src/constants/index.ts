@@ -123,7 +123,16 @@ const technologies = [
   },
 ]
 
-const experiences = [
+export interface IExperienceItem {
+  title: string
+  company_name: string
+  icon: string
+  iconBg: string
+  date: string
+  points: Array<string>
+}
+
+const experiences: Array<IExperienceItem> = [
   {
     title: 'React.js Developer',
     company_name: 'Starbucks',

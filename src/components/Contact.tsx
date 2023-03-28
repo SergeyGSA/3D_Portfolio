@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react'
+import React, { ChangeEvent, FormEvent, RefObject } from 'react'
 import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 
@@ -22,9 +22,32 @@ const Contact: React.FC = () => {
   })
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleChange = (e: any): void => {}
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name, value } = e.target
 
-  const handleSubmit = (e: any): void => {}
+    setForm({ ...form, [name]: value })
+  }
+
+  const handleSubmit = (e: FormEvent): void => {
+    e.preventDefault()
+    setLoading(true)
+
+    const formData: IForm = {
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    }
+
+    console.log(formData)
+
+    setTimeout(() => setLoading(false), 3000)
+
+    setForm({
+      name: '',
+      email: '',
+      message: '',
+    })
+  }
 
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
